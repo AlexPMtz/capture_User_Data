@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import * as Classes from '../../views/capturarDatos/CapturarDatos.module.css';
 
-const DatosUsuario = () => {
+const DatosUsuario = ({ formFilled, done }) => {
+
+  const [compPdf, setCompPdf] = useState('');
+  const [identPdf, setIdentPdf] = useState('');
 
   const formik = useFormik({
     initialValues: {
@@ -62,9 +65,30 @@ const DatosUsuario = () => {
     }),
     onSubmit: (datosFormulario) => {
       console.log("Datos del usuario: ", datosFormulario);
-      window.localStorage.setItem('userData', JSON.stringify(datosFormulario));
+      window.localStorage.setItem('userData', JSON.stringify({ ...datosFormulario, comp: compPdf, ident: identPdf }));
+      done();
     }
   })
+
+  const handleFile = (e) => {
+    let inputId = e.target.id;
+    const { files } = e.target;
+
+    if (files.length) {
+      const [pdfLoaded] = files;
+      const FR = new FileReader();
+      FR.onload = () => {
+        let urlLocalFile = FR.result;
+        if (inputId === "comp") {
+          setCompPdf({ url: urlLocalFile, name: pdfLoaded.name });
+        } else {
+          setIdentPdf({ url: urlLocalFile, name: pdfLoaded.name });
+        }
+      }
+      formik.handleChange(e);
+      FR.readAsDataURL(pdfLoaded);
+    }
+  }
 
   return (
     <>
@@ -73,9 +97,11 @@ const DatosUsuario = () => {
         <div className="col-12 mb-3">
           <label className="form-label">Comprobante de domicilio</label>
           <input
-            name="comprobante"
-            onChange={formik.handleChange}
+            accept="application/pdf"
+            id="comp"
             className="form-control"
+            name="comprobante"
+            onChange={ handleFile }
             type="file"
             value={formik.values.comprobante}
             style={{ borderColor: formik.touched.comprobante && formik.errors.comprobante ? "red" : null }}
@@ -153,7 +179,7 @@ const DatosUsuario = () => {
             name="fechaNaciment"
             onChange={formik.handleChange}
             className="form-control"
-            type="text"
+            type="date"
             value={formik.values.fechaNaciment}
             style={{ borderColor: formik.touched.fechaNaciment && formik.errors.fechaNaciment ? "red" : null }}
           />
@@ -410,11 +436,13 @@ const DatosUsuario = () => {
         <div className="col-12">
           <label className="form-label">Identificacion</label>
           <input
+            accept="application/pdf"
+            id="ident"
             name="identificacion"
-            onChange={formik.handleChange}
+            onChange={ handleFile }
             className="form-control"
             type="file"
-            value={formik.values.identificacion}
+            value={ formik.values.identificacion }
             style={{ borderColor: formik.touched.identificacion && formik.errors.identificacion ? "red" : null }}
           />
           {
@@ -459,8 +487,9 @@ const DatosUsuario = () => {
         className="btn btn-primary w-100"
         onClick={formik.handleSubmit}
         type="submit"
+        disabled={!formFilled}
       >
-        LISTO
+        Ver datos guardados
       </button>
     </>
   )
