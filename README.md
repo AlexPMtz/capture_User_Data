@@ -19,7 +19,7 @@ const formik = useFormik({
   validationScehma:{
     //hacemos la validaciones que necesitemos, según sea el input
     colonia: Yup.string().required("Campo obligatorio"),
-    cp: Yup.string().required("Campo obligatorio").matches(/^(\d([0-9]*\d))$/, "Sólo números"),
+    cp: Yup.string().required("Campo obligatorio").matches(/^(\d([0-9]*\d))$/, "Sólo números"), //en matches definimos una expresion regular para que sólo aceptemos números
   },
   onSumbit: (datosFormulario) => {
     //Mandamos los datos capturados al localStorage
