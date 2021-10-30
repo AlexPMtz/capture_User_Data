@@ -42,6 +42,7 @@ const DatosEmpresa = () => {
     }),
     onSubmit: (datosFormulario) => {
       console.log("Datos de la empresa: ", datosFormulario);
+      window.localStorage.setItem('companyData',JSON.stringify(datosFormulario));
     }
   })
 
@@ -172,7 +173,7 @@ const DatosEmpresa = () => {
           }
         </div>
         <div className="col-3">
-          <label className="form-label">Núm exterior</label>
+          <label className="form-label">Núm ext</label>
           <input
             name="nExt"
             onChange={formik.handleChange}
@@ -186,7 +187,7 @@ const DatosEmpresa = () => {
           }
         </div>
         <div className="col-3">
-          <label className="form-label">Núm interior</label>
+          <label className="form-label">Núm int</label>
           <input
             name="nInt"
             onChange={formik.handleChange}
