@@ -64,7 +64,6 @@ const DatosUsuario = ({ formFilled, done }) => {
       banco: Yup.string().required("Campo obligatorio")
     }),
     onSubmit: (datosFormulario) => {
-      console.log("Datos del usuario: ", datosFormulario);
       window.localStorage.setItem('userData', JSON.stringify({ ...datosFormulario, comp: compPdf, ident: identPdf }));
       done();
     }

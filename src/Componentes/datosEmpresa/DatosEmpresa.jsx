@@ -41,7 +41,6 @@ const DatosEmpresa = ({done}) => {
       pais: Yup.string().required("Campo obligatorio")
     }),
     onSubmit: (datosFormulario) => {
-      console.log("Datos: ", datosFormulario);
       window.localStorage.setItem('companyData',JSON.stringify(datosFormulario));
       done(true);
     }
@@ -283,7 +282,7 @@ const DatosEmpresa = ({done}) => {
        onClick={formik.handleSubmit}
        type="submit"
       >
-        LISTO
+        ENVIAR
       </button>
     </>
   )
