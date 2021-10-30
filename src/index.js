@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import CapturarDatos from './views/capturarDatos/CapturarDatos';
+import App from './App';
 
 ReactDOM.render(
   <React.StrictMode>
-    <CapturarDatos />
+    <App />
   </React.StrictMode>,
   document.getElementById('root')
 );
