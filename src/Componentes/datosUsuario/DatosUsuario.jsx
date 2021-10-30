@@ -15,17 +15,17 @@ const DatosUsuario = () => {
       fechaNaciment: "",
       entidadFed: "",
       paisNacimiento: "",
-      nacionalidad: "",
+      nacionalidadUsr: "",
       curp: "",
-      rfc: "",
-      calle: "",
-      nExt: "",
-      nInt: "",
-      colonia: "",
-      cp: "",
-      ciudad: "",
-      estado: "",
-      pais: "",
+      rfcUsr: "",
+      calleUsr: "",
+      nExtUsr: "",
+      nIntUsr: "",
+      coloniaUsr: "",
+      cpUsr: "",
+      ciudadUsr: "",
+      estadoUsr: "",
+      paisUsr: "",
       estadoCivil: "",
       correoRepresentate: "",
       telefono: "",
@@ -42,17 +42,17 @@ const DatosUsuario = () => {
       fechaNaciment: Yup.string().required("Campo obligatorio"),
       entidadFed: Yup.string().required("Campo obligatorio"),
       paisNacimiento: Yup.string().required("Campo obligatorio"),
-      nacionalidad: Yup.string().required("Campo obligatorio"),
+      nacionalidadUsr: Yup.string().required("Campo obligatorio"),
       curp: Yup.string().required("Campo obligatorio"),
-      rfc: Yup.string().required("Campo obligatorio"),
-      calle: Yup.string().required("Campo obligatorio"),
-      nExt: Yup.string().required("Campo obligatorio"),
-      nInt: Yup.string().required("Campo obligatorio"),
-      colonia: Yup.string().required("Campo obligatorio"),
-      cp: Yup.string().required("Campo obligatorio"),
-      ciudad: Yup.string().required("Campo obligatorio"),
-      estado: Yup.string().required("Campo obligatorio"),
-      pais: Yup.string().required("Campo obligatorio"),
+      rfcUsr: Yup.string().required("Campo obligatorio"),
+      calleUsr: Yup.string().required("Campo obligatorio"),
+      nExtUsr: Yup.string().required("Campo obligatorio"),
+      nIntUsr: Yup.string().required("Campo obligatorio"),
+      coloniaUsr: Yup.string().required("Campo obligatorio"),
+      cpUsr: Yup.string().required("Campo obligatorio"),
+      ciudadUsr: Yup.string().required("Campo obligatorio"),
+      estadoUsr: Yup.string().required("Campo obligatorio"),
+      paisUsr: Yup.string().required("Campo obligatorio"),
       estadoCivil: Yup.string().required("Campo obligatorio"),
       correoRepresentate: Yup.string().required("Campo obligatorio").matches(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/, "Correo inválido"),
       telefono: Yup.string().required("Campo obligatorio").matches(/^(\d([0-9]*\d){9})$/, "Teléfono inválido").max(10, "Máximo 10 digitos"),
@@ -61,7 +61,8 @@ const DatosUsuario = () => {
       banco: Yup.string().required("Campo obligatorio")
     }),
     onSubmit: (datosFormulario) => {
-      console.log("Datos del usuario: ",datosFormulario);
+      console.log("Datos del usuario: ", datosFormulario);
+      window.localStorage.setItem('userData', JSON.stringify(datosFormulario));
     }
   })
 
@@ -77,6 +78,7 @@ const DatosUsuario = () => {
             className="form-control"
             type="file"
             value={formik.values.comprobante}
+            style={{ borderColor: formik.touched.comprobante && formik.errors.comprobante ? "red" : null }}
           />
           {
             formik.errors.comprobante && formik.touched.comprobante && <div className={Classes.error}>{formik.errors.comprobante}</div>
@@ -145,7 +147,7 @@ const DatosUsuario = () => {
       </div>
 
       <div className="row mb-3">
-      <div className="col-4">
+        <div className="col-6">
           <label className="form-label">Fecha nacimiento</label>
           <input
             name="fechaNaciment"
@@ -159,7 +161,7 @@ const DatosUsuario = () => {
             formik.errors.fechaNaciment && formik.touched.fechaNaciment && <div className={Classes.error}>{formik.errors.fechaNaciment}</div>
           }
         </div>
-        <div className="col-4">
+        <div className="col-6">
           <label className="form-label">Entidad federativa</label>
           <input
             name="entidadFed"
@@ -173,7 +175,10 @@ const DatosUsuario = () => {
             formik.errors.entidadFed && formik.touched.entidadFed && <div className={Classes.error}>{formik.errors.entidadFed}</div>
           }
         </div>
-        <div className="col-4">
+      </div>
+
+      <div className="row mb-3">
+        <div className="col-6">
           <label className="form-label">País de nacimiento</label>
           <input
             name="paisNacimiento"
@@ -187,24 +192,24 @@ const DatosUsuario = () => {
             formik.errors.paisNacimiento && formik.touched.paisNacimiento && <div className={Classes.error}>{formik.errors.paisNacimiento}</div>
           }
         </div>
-      </div>
-
-      <div className="row mb-3">
-      <div className="col-4">
+        <div className="col-6">
           <label className="form-label">Nacionalidad</label>
           <input
-            name="nacionalidad"
+            name="nacionalidadUsr"
             onChange={formik.handleChange}
             className="form-control"
             type="text"
-            value={formik.values.nacionalidad}
-            style={{ borderColor: formik.touched.nacionalidad && formik.errors.nacionalidad ? "red" : null }}
+            value={formik.values.nacionalidadUsr}
+            style={{ borderColor: formik.touched.nacionalidadUsr && formik.errors.nacionalidadUsr ? "red" : null }}
           />
           {
-            formik.errors.nacionalidad && formik.touched.nacionalidad && <div className={Classes.error}>{formik.errors.nacionalidad}</div>
+            formik.errors.nacionalidadUsr && formik.touched.nacionalidadUsr && <div className={Classes.error}>{formik.errors.nacionalidadUsr}</div>
           }
         </div>
-        <div className="col-4">
+      </div>
+
+      <div className="row mb-4">
+        <div className="col-6">
           <label className="form-label">CURP</label>
           <input
             name="curp"
@@ -212,24 +217,24 @@ const DatosUsuario = () => {
             className="form-control"
             type="text"
             value={formik.values.curp}
-            style={{ borderColor: formik.curp && formik.curp ? "red" : null }}
+            style={{ borderColor: formik.touched.curp && formik.errors.curp ? "red" : null }}
           />
           {
             formik.errors.curp && formik.touched.curp && <div className={Classes.error}>{formik.errors.curp}</div>
           }
         </div>
-        <div className="col-4">
+        <div className="col-6">
           <label className="form-label">RFC</label>
           <input
-            name="rfc"
+            name="rfcUsr"
             onChange={formik.handleChange}
             className="form-control"
             type="text"
-            value={formik.values.rfc}
-            style={{ borderColor: formik.rfc && formik.rfc ? "red" : null }}
+            value={formik.values.rfcUsr}
+            style={{ borderColor: formik.touched.rfcUsr && formik.errors.rfcUsr ? "red" : null }}
           />
           {
-            formik.errors.rfc && formik.touched.rfc && <div className={Classes.error}>{formik.errors.rfc}</div>
+            formik.errors.rfcUsr && formik.touched.rfcUsr && <div className={Classes.error}>{formik.errors.rfcUsr}</div>
           }
         </div>
       </div>
@@ -239,43 +244,43 @@ const DatosUsuario = () => {
         <div className="col-6">
           <label className="form-label">Calle</label>
           <input
-            name="calle"
+            name="calleUsr"
             onChange={formik.handleChange}
             className="form-control"
             type="text"
-            value={formik.values.calle}
-            style={{ borderColor: formik.touched.calle && formik.errors.calle ? "red" : null }}
+            value={formik.values.calleUsr}
+            style={{ borderColor: formik.touched.calleUsr && formik.errors.calleUsr ? "red" : null }}
           />
           {
-            formik.errors.calle && formik.touched.calle && <div className={Classes.error}>{formik.errors.calle}</div>
+            formik.errors.calleUsr && formik.touched.calleUsr && <div className={Classes.error}>{formik.errors.calleUsr}</div>
           }
         </div>
         <div className="col-3">
-          <label className="form-label">Núm exterior</label>
+          <label className="form-label">Núm ext</label>
           <input
-            name="nExt"
+            name="nExtUsr"
             onChange={formik.handleChange}
             className="form-control"
             type="text"
-            value={formik.values.nExt}
-            style={{ borderColor: formik.touched.nExt && formik.errors.nExt ? "red" : null }}
+            value={formik.values.nExtUsr}
+            style={{ borderColor: formik.touched.nExtUsr && formik.errors.nExtUsr ? "red" : null }}
           />
           {
-            formik.errors.nExt && formik.touched.nExt && <div className={Classes.error}>{formik.errors.nExt}</div>
+            formik.errors.nExtUsr && formik.touched.nExtUsr && <div className={Classes.error}>{formik.errors.nExtUsr}</div>
           }
         </div>
         <div className="col-3">
-          <label className="form-label">Núm interior</label>
+          <label className="form-label">Núm int</label>
           <input
-            name="nInt"
+            name="nIntUsr"
             onChange={formik.handleChange}
             className="form-control"
             type="text"
-            value={formik.values.nInt}
-            style={{ borderColor: formik.touched.nInt && formik.errors.nInt ? "red" : null }}
+            value={formik.values.nIntUsr}
+            style={{ borderColor: formik.touched.nIntUsr && formik.errors.nIntUsr ? "red" : null }}
           />
           {
-            formik.errors.nInt && formik.touched.nInt && <div className={Classes.error}>{formik.errors.nInt}</div>
+            formik.errors.nIntUsr && formik.touched.nIntUsr && <div className={Classes.error}>{formik.errors.nIntUsr}</div>
           }
         </div>
       </div>
@@ -284,29 +289,29 @@ const DatosUsuario = () => {
         <div className="col-6">
           <label className="form-label font-weight-bold">Colonia</label>
           <input
-            name="colonia"
+            name="coloniaUsr"
             onChange={formik.handleChange}
             className="form-control"
             type="text"
-            value={formik.values.colonia}
-            style={{ borderColor: formik.touched.colonia && formik.errors.colonia ? "red" : null }}
+            value={formik.values.coloniaUsr}
+            style={{ borderColor: formik.touched.coloniaUsr && formik.errors.coloniaUsr ? "red" : null }}
           />
           {
-            formik.errors.colonia && formik.touched.colonia && <div className={Classes.error}>{formik.errors.colonia}</div>
+            formik.errors.coloniaUsr && formik.touched.coloniaUsr && <div className={Classes.error}>{formik.errors.coloniaUsr}</div>
           }
         </div>
         <div className="col-4">
           <label className="form-label">CP</label>
           <input
-            name="cp"
+            name="cpUsr"
             onChange={formik.handleChange}
             className="form-control"
             type="text"
-            value={formik.values.cp}
-            style={{ borderColor: formik.touched.cp && formik.errors.cp ? "red" : null }}
+            value={formik.values.cpUsr}
+            style={{ borderColor: formik.touched.cpUsr && formik.errors.cpUsr ? "red" : null }}
           />
           {
-            formik.errors.cp && formik.touched.cp && <div className={Classes.error}>{formik.errors.cp}</div>
+            formik.errors.cpUsr && formik.touched.cpUsr && <div className={Classes.error}>{formik.errors.cpUsr}</div>
           }
         </div>
       </div>
@@ -315,43 +320,43 @@ const DatosUsuario = () => {
         <div className="col-4">
           <label className="form-label">Ciudad</label>
           <input
-            name="ciudad"
+            name="ciudadUsr"
             onChange={formik.handleChange}
             className="form-control"
             type="text"
-            value={formik.values.ciudad}
-            style={{ borderColor: formik.touched.ciudad && formik.errors.ciudad ? "red" : null }}
+            value={formik.values.ciudadUsr}
+            style={{ borderColor: formik.touched.ciudadUsr && formik.errors.ciudadUsr ? "red" : null }}
           />
           {
-            formik.errors.ciudad && formik.touched.ciudad && <div className={Classes.error}>{formik.errors.ciudad}</div>
+            formik.errors.ciudadUsr && formik.touched.ciudadUsr && <div className={Classes.error}>{formik.errors.ciudadUsr}</div>
           }
         </div>
         <div className="col-4">
           <label className="form-label">Estado</label>
           <input
-            name="estado"
+            name="estadoUsr"
             onChange={formik.handleChange}
             className="form-control"
             type="text"
-            value={formik.values.estado}
-            style={{ borderColor: formik.touched.estado && formik.errors.estado ? "red" : null }}
+            value={formik.values.estadoUsr}
+            style={{ borderColor: formik.touched.estadoUsr && formik.errors.estadoUsr ? "red" : null }}
           />
           {
-            formik.errors.estado && formik.touched.estado && <div className={Classes.error}>{formik.errors.estado}</div>
+            formik.errors.estadoUsr && formik.touched.estadoUsr && <div className={Classes.error}>{formik.errors.estadoUsr}</div>
           }
         </div>
         <div className="col-4">
           <label className="form-label">País</label>
           <input
-            name="pais"
+            name="paisUsr"
             onChange={formik.handleChange}
             className="form-control"
             type="text"
-            value={formik.values.pais}
-            style={{ borderColor: formik.touched.pais && formik.errors.pais ? "red" : null }}
+            value={formik.values.paisUsr}
+            style={{ borderColor: formik.touched.paisUsr && formik.errors.paisUsr ? "red" : null }}
           />
           {
-            formik.errors.pais && formik.touched.pais && <div className={Classes.error}>{formik.errors.pais}</div>
+            formik.errors.paisUsr && formik.touched.paisUsr && <div className={Classes.error}>{formik.errors.paisUsr}</div>
           }
         </div>
       </div>
@@ -409,8 +414,8 @@ const DatosUsuario = () => {
             onChange={formik.handleChange}
             className="form-control"
             type="file"
-            value={formik.values.identificacion}                        
-            style={{ borderColor: formik.touched.identificacion && formik.errors.identificacion ? "red" : null }}                            
+            value={formik.values.identificacion}
+            style={{ borderColor: formik.touched.identificacion && formik.errors.identificacion ? "red" : null }}
           />
           {
             formik.errors.identificacion && formik.touched.identificacion && <div className={Classes.error}>{formik.errors.identificacion}</div>
