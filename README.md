@@ -8,7 +8,7 @@ Herramientas usadas en este proyeto.
 - [Bootstrap] (https://getbootstrap.com/) framework CSS utilizado en aplicaciones front-end.
 
 ## Uso de formik
-Implementamos el hook **useFormik()** para crear el componente <Formik> en el cual indicamos los valores iniciales, las validaciones, y el método onSubmit.
+Implementamos el hook **useFormik()** para crear el componente **<Formik>** en el cual indicamos los valores iniciales, las validaciones, y el método onSubmit.
 ``` js
 const formik = useFormik({
   initialValues: {
