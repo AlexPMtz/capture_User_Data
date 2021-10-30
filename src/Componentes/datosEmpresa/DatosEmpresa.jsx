@@ -3,7 +3,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import * as Classes from '../../views/capturarDatos/CapturarDatos.module.css';
 
-const DatosEmpresa = () => {
+const DatosEmpresa = ({done}) => {
 
   const formik = useFormik({
     initialValues: {
@@ -41,8 +41,9 @@ const DatosEmpresa = () => {
       pais: Yup.string().required("Campo obligatorio")
     }),
     onSubmit: (datosFormulario) => {
-      console.log("Datos de la empresa: ", datosFormulario);
+      console.log("Datos: ", datosFormulario);
       window.localStorage.setItem('companyData',JSON.stringify(datosFormulario));
+      done(true);
     }
   })
 
@@ -54,10 +55,10 @@ const DatosEmpresa = () => {
           <label className="form-label">Razón social</label>
           <input
             name="razonSocial"
-            onChange={formik.handleChange}
+            onChange={ formik.handleChange }
             className="form-control"
             type="text"
-            value={formik.values.razonSocial}
+            value={ formik.values.razonSocial }
             style={{ borderColor: formik.touched.razonSocial && formik.errors.razonSocial ? "red" : null }}
           />
           {
@@ -101,7 +102,7 @@ const DatosEmpresa = () => {
             name="fechaConstitucion"
             onChange={formik.handleChange}
             className="form-control"
-            type="text"
+            type="date"
             value={formik.values.fechaConstitucion}
             style={{ borderColor: formik.touched.fechaConstitucion && formik.errors.fechaConstitucion ? "red" : null }}
           />
