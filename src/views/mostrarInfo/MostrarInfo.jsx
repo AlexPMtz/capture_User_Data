@@ -1,3 +1,4 @@
+import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import * as Classes from './MostrarInfo.module.css';
@@ -37,7 +38,6 @@ const MostrarInfo = () => {
   } = companyData;
 
   const {
-    comprobante,
     numero,
     correo,
     nombre,
@@ -59,10 +59,14 @@ const MostrarInfo = () => {
     estadoCivil,
     correoRepresentate,
     telefono,
-    identificacion,
     CLABE,
-    banco
+    banco,
+    comp,
+    ident
   } = userData;
+
+  let fechaConstFormat = moment(fechaConstitucion).format("MM/DD/YYYY");
+  let fechaNacimFormat = moment(fechaNaciment).format("MM/DD/YYYY");
 
   return (
     <div className={Classes.mainContainer}>
@@ -73,7 +77,7 @@ const MostrarInfo = () => {
           <label><strong>Razón social:</strong> { razonSocial }</label>
           <label><strong>Nombre comercial:</strong> { nombreComercial }</label>
           <label><strong>Nacionalidad:</strong> { nacionalidad }</label>
-          <label><strong>Fecha de constitución:</strong> { fechaConstitucion }</label>
+          <label><strong>Fecha de constitución:</strong> { fechaConstFormat }</label>
           <label><strong>RFC:</strong> { rfc }</label>
           <label><strong>Régimen Fiscal:</strong> { regFiscal }</label>
           <label><strong>Industria:</strong> { industria }</label>
@@ -87,13 +91,15 @@ const MostrarInfo = () => {
           <label><strong>Estado:</strong> { estado }</label>
           <label><strong>Pais:</strong> { pais }</label>
           <h4 className="mb-3 mt-3">Datos de personales</h4>
-          <label><strong>Comprobante domicilio:</strong> { comprobante }</label>
+          {
+            comp && (<strong>Comprobante domicilio: <a href={comp.url} download={ comp.name }>{ comp.name }</a></strong>)
+          }
           <label><strong>Número telefónico:</strong> { numero }</label>
           <label><strong>Correo electrónico:</strong> { correo }</label>
           <h4 className="mb-3 mt-3">Representante legal</h4>
           <label><strong>Nombre:</strong> { nombre }</label>
           <label><strong>Género:</strong> { genero }</label>
-          <label><strong>Fecha de nacimiento:</strong> { fechaNaciment }</label>
+          <label><strong>Fecha de nacimiento:</strong> { fechaNacimFormat }</label>
           <label><strong>Entidad Federativa de nacimiento:</strong> { entidadFed }</label>
           <label><strong>País de nacimiento:</strong> { paisNacimiento }</label>
           <label><strong>Nacionalidad:</strong> { nacionalidadUsr }</label>
@@ -110,7 +116,9 @@ const MostrarInfo = () => {
           <label><strong>Estado civil:</strong> { estadoCivil }</label>
           <label><strong>Correo electrónico:</strong> { correoRepresentate }</label>
           <label><strong>Teléfono:</strong> { telefono }</label>
-          <label><strong>Documento de identificación:</strong> { identificacion }</label>
+          {
+            ident && ( <strong>Documento de identificación: <a href={ident.url} download={ ident.name }>{ ident.name }</a></strong> )
+          }
           <h4 className="mb-3 mt-3">Cuenta bancaria</h4>
           <label><strong>CLABE:</strong> { CLABE }</label>
           <label><strong>Banco:</strong> { banco }</label>
